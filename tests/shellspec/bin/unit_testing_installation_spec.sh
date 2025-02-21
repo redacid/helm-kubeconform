@@ -8,7 +8,7 @@ export HELM_PLUGIN_NAME=kubeconform
 export HELM_PLUGIN_DIR="$PWD"
 
 PLUGIN_VERSION=$(sed -n "s/^[[:space:]]*version[[:space:]]*:[[:space:]]*//p" "$HELM_PLUGIN_DIR/plugin.yaml")
-KUBECONFORM_URL=https://github.com/yannh/kubeconform
+KUBECONFORM_URL=https://github.com/redacid/kubeconform
 TMP_DIR=/tmp/tmpdir
 
 is_windows() {

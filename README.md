@@ -1,8 +1,8 @@
 # Kubeconform Helm plugin
 
-[![Linting](https://github.com/melmorabity/helm-kubeconform/actions/workflows/linting.yml/badge.svg)](https://github.com/melmorabity/helm-kubeconform/actions/workflows/linting.yml) [![Unit tests](https://github.com/melmorabity/helm-kubeconform/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/melmorabity/helm-kubeconform/actions/workflows/unit_tests.yml) [![codecov](https://codecov.io/gh/melmorabity/helm-kubeconform/branch/main/graph/badge.svg)](https://codecov.io/gh/melmorabity/helm-kubeconform) [![Acceptance tests](https://github.com/melmorabity/helm-kubeconform/actions/workflows/acceptance_tests.yml/badge.svg)](https://github.com/melmorabity/helm-kubeconform/actions/workflows/acceptance_tests.yml)
+[![Linting](https://github.com/redacid/helm-kubeconform/actions/workflows/linting.yml/badge.svg)](https://github.com/redacid/helm-kubeconform/actions/workflows/linting.yml) [![Unit tests](https://github.com/redacid/helm-kubeconform/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/redacid/helm-kubeconform/actions/workflows/unit_tests.yml) [![codecov](https://codecov.io/gh/redacid/helm-kubeconform/branch/main/graph/badge.svg)](https://codecov.io/gh/redacid/helm-kubeconform) [![Acceptance tests](https://github.com/redacid/helm-kubeconform/actions/workflows/acceptance_tests.yml/badge.svg)](https://github.com/redacid/helm-kubeconform/actions/workflows/acceptance_tests.yml)
 
-helm-kubeconform is a [Helm](https://helm.sh/) plugin for validating Helm charts against the Kubernetes schemas, using [Kubeconform](https://github.com/yannh/kubeconform/).
+helm-kubeconform is a [Helm](https://helm.sh/) plugin for validating Helm charts against the Kubernetes schemas, using [Kubeconform](https://github.com/redacid/kubeconform/).
 
 This plugin was inspired by the [Kubeval Helm plugin](https://github.com/instrumenta/helm-kubeval/).
 
@@ -11,10 +11,10 @@ This plugin was inspired by the [Kubeval Helm plugin](https://github.com/instrum
 Install the latest version of the plugin using the built-in plugin manager:
 
 ```console
-helm plugin install https://github.com/melmorabity/helm-kubeconform --version 0.6.7.1
+helm plugin install https://github.com/redacid/helm-kubeconform --version 0.6.8
 ```
 
-The installer will download and install the Kubeconform binary available for the running platform. As a result, this plugin only supports platforms for which a binary is available [on the Kubeconform release page](https://github.com/yannh/kubeconform/releases).
+The installer will download and install the Kubeconform binary available for the running platform. As a result, this plugin only supports platforms for which a binary is available [on the Kubeconform release page](https://github.com/redacid/kubeconform/releases).
 
 > **Warning**
 >
@@ -25,7 +25,7 @@ The installer will download and install the Kubeconform binary available for the
 
 ## Usage
 
-The plugin runs `helm template` and passes its output to Kubeconform. The plugin accepts most flags from [`helm template`](https://helm.sh/docs/helm/helm_template/), as well as most flags from [Kubeconform](https://github.com/yannh/kubeconform#Usage). The plugin will automatically pass Kubeconform options to Kubeconform, and all others to Helm.
+The plugin runs `helm template` and passes its output to Kubeconform. The plugin accepts most flags from [`helm template`](https://helm.sh/docs/helm/helm_template/), as well as most flags from [Kubeconform](https://github.com/redacid/kubeconform#Usage). The plugin will automatically pass Kubeconform options to Kubeconform, and all others to Helm.
 
 ```console
 helm kubeconform chart [flags]
@@ -156,12 +156,12 @@ Summary: 3 resources found parsing stdin - Valid: 3, Invalid: 0, Errors: 0, Skip
 $ helm kubeconform tests/fixtures/chart-k8s/ --values tests/fixtures/bad_values.yaml --verbose --summary
 stdin - ServiceAccount release-name-chart-k8s is valid
 stdin - Service release-name-chart-k8s is valid
-stdin - Deployment release-name-chart-k8s is invalid: problem validating schema. Check JSON formatting: jsonschema: '/spec/replicas' does not validate with https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone/deployment-apps-v1.json#/properties/spec/properties/replicas/type: expected integer or null, but got string
+stdin - Deployment release-name-chart-k8s is invalid: problem validating schema. Check JSON formatting: jsonschema: '/spec/replicas' does not validate with https://raw.githubusercontent.com/redacid/k8s-json-schema/master/master-standalone/deployment-apps-v1.json#/properties/spec/properties/replicas/type: expected integer or null, but got string
 Summary: 3 resources found parsing stdin - Valid: 2, Invalid: 1, Errors: 0, Skipped: 0
 Error: plugin "kubeconform" exited with error
 ```
 
-The plugin supports schema location override, [just like Kubeconform](https://github.com/yannh/kubeconform#Overriding-schemas-location). CRDs can be passed to the plugin using the `--schema-location` option, as well as OpenShift JSON schemas:
+The plugin supports schema location override, [just like Kubeconform](https://github.com/redacid/kubeconform#Overriding-schemas-location). CRDs can be passed to the plugin using the `--schema-location` option, as well as OpenShift JSON schemas:
 
 ```console
 $ helm kubeconform tests/fixtures/chart-ocp/ --schema-location 'https://raw.githubusercontent.com/melmorabity/openshift-json-schemas/main/v4.14-standalone{{ .StrictSuffix }}/{{ .ResourceKind }}.json' --verbose --summary
@@ -185,8 +185,8 @@ To enable the hook, add the following lines to the `repos` list in the project's
 
 ```yaml
 repos:
-  - repo: https://github.com/melmorabity/helm-kubeconform
-    rev: 0.6.7.1
+  - repo: https://github.com/redacid/helm-kubeconform
+    rev: 0.6.8
     hooks:
       - id: helm-kubeconform
 ```
@@ -195,8 +195,8 @@ This hook supports all options provided by the Helm plugin (using the `args` key
 
 ```yaml
 repos:
-  - repo: https://github.com/melmorabity/helm-kubeconform
-    rev: 0.6.7.1
+  - repo: https://github.com/redacid/helm-kubeconform
+    rev: 0.6.8
     hooks:
       - id: helm-kubeconform
         files: ^tests/fixtures/chart-.+?/
@@ -210,8 +210,8 @@ To enable the hook, add the following lines to the `repos` list in the project's
 
 ```yaml
 repos:
-  - repo: https://github.com/melmorabity/helm-kubeconform
-    rev: 0.6.7.1
+  - repo: https://github.com/redacid/helm-kubeconform
+    rev: 0.6.8
     hooks:
       - id: helm-kubeconform-values
 ```
@@ -220,8 +220,8 @@ This hook supports all options provided by the Helm plugin but requires a chart 
 
 ```yaml
 repos:
-  - repo: https://github.com/melmorabity/helm-kubeconform
-    rev: 0.6.7.1
+  - repo: https://github.com/redacid/helm-kubeconform
+    rev: 0.6.8
     hooks:
       - id: helm-kubeconform-values
         args:

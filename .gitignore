@@ -9,3 +9,5 @@ build
 coverage
 dist
 kubeconform
+.idea
+
